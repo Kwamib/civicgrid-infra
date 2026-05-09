@@ -1,0 +1,23 @@
+# Copy to terraform.tfvars and fill in your values.
+# DO NOT commit terraform.tfvars — it's gitignored.
+# In production, set these values via Terraform Cloud workspace variables instead.
+
+# Sensitive values
+do_token             = "dop_v1_xxxxxxxxxxxxxxxx"
+cloudflare_api_token = "xxxxxxxxxxxxxxxxxxxx"
+cloudflare_zone_id   = "xxxxxxxxxxxxxxxxxxxx"
+
+# Cluster config (defaults are usually fine)
+cluster_name       = "civicgrid-prod"
+region             = "nyc3"
+kubernetes_version = "1.31.1-do.0"
+node_size          = "s-2vcpu-4gb"
+node_count         = 1
+
+# DNS config — change to your real domain
+domain        = "civicgrid.example.com"
+api_subdomain = "api"
+
+# GitOps config (defaults usually fine)
+gitops_repo_url        = "https://github.com/Kwamib/civicgrid-gitops.git"
+gitops_target_revision = "main"
