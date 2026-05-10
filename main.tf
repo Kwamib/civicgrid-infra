@@ -34,7 +34,7 @@ resource "cloudflare_record" "api" {
   zone_id = var.cloudflare_zone_id
   name    = var.api_subdomain
   type    = "A"
-  content = "1.2.3.4"
+  content = var.lb_ip
   proxied = true
   ttl     = 1
   comment = "civicgrid-api — managed by Terraform"

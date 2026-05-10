@@ -97,3 +97,13 @@ variable "database_url" {
   type        = string
   sensitive   = true
 }
+
+# ---------------------------------------------------------------------------
+# Load Balancer IP
+# ---------------------------------------------------------------------------
+
+variable "lb_ip" {
+  description = "DigitalOcean LoadBalancer IP for the Envoy Gateway. After first apply, get this from: kubectl get svc -n envoy-gateway-system. Set in Terraform Cloud workspace."
+  type        = string
+  default     = "1.2.3.4"
+}
