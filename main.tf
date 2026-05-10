@@ -97,9 +97,8 @@ resource "helm_release" "argocd" {
 # ---------------------------------------------------------------------------
 # ArgoCD root Application — bootstraps the gitops repo
 #
-# Uses the argocd-apps Helm chart, which is purpose-built for installing
-# Application/AppProject manifests. This avoids the kubernetes_manifest
-# resource's planning limitation (it requires a live cluster to plan against).
+# argocd-apps chart at v2.0.2 expects 'applications' as a map keyed by name,
+# not a list of objects with a 'name' field.
 # ---------------------------------------------------------------------------
 
 resource "helm_release" "civicgrid_root_app" {
@@ -114,9 +113,8 @@ resource "helm_release" "civicgrid_root_app" {
 
   values = [
     yamlencode({
-      applications = [
-        {
-          name      = "civicgrid-root"
+      applications = {
+        "civicgrid-root" = {
           namespace = "argocd"
           project   = "default"
           finalizers = [
@@ -146,7 +144,7 @@ resource "helm_release" "civicgrid_root_app" {
             ]
           }
         }
-      ]
+      }
     })
   ]
 
