@@ -41,6 +41,33 @@ resource "cloudflare_record" "api" {
 }
 
 # ---------------------------------------------------------------------------
+# Pre-create civicgrid namespace and database Secret BEFORE ArgoCD reconciles.
+# This eliminates the race condition where civicgrid-api tries to deploy
+# before the Secret exists, causing CrashLoopBackOff and "Missing" status.
+# ---------------------------------------------------------------------------
+
+resource "kubernetes_namespace" "civicgrid" {
+  metadata {
+    name = "civicgrid"
+  }
+
+  depends_on = [digitalocean_kubernetes_cluster.civicgrid]
+}
+
+resource "kubernetes_secret" "civicgrid_database" {
+  metadata {
+    name      = "civicgrid-database"
+    namespace = kubernetes_namespace.civicgrid.metadata[0].name
+  }
+
+  type = "Opaque"
+
+  data = {
+    DATABASE_URL = var.database_url
+  }
+}
+
+# ---------------------------------------------------------------------------
 # ArgoCD installation via Helm
 # ---------------------------------------------------------------------------
 
@@ -148,5 +175,8 @@ resource "helm_release" "civicgrid_root_app" {
     })
   ]
 
-  depends_on = [helm_release.argocd]
+  depends_on = [
+    helm_release.argocd,
+    kubernetes_secret.civicgrid_database
+  ]
 }
