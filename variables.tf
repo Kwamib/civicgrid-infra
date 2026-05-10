@@ -87,3 +87,13 @@ variable "gitops_target_revision" {
   type        = string
   default     = "main"
 }
+
+# ---------------------------------------------------------------------------
+# Application secrets
+# ---------------------------------------------------------------------------
+
+variable "database_url" {
+  description = "Postgres connection string for the civicgrid-api app. Set in Terraform Cloud workspace as sensitive."
+  type        = string
+  sensitive   = true
+}
