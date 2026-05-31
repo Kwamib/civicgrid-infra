@@ -28,3 +28,9 @@ terraform.rc
 .idea/
 .vscode/
 *.swp
+live-*.yaml
+tmp-*
+
+# Diagnostic and portfolio artifacts
+[0-9][0-9]-*.json
+[0-9][0-9]-*.txt
