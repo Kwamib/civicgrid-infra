@@ -177,6 +177,27 @@ resource "helm_release" "civicgrid_root_app" {
 
   depends_on = [
     helm_release.argocd,
-    kubernetes_secret.civicgrid_database
+    kubernetes_secret.civicgrid_database,
+    kubernetes_secret.civicgrid_admin
   ]
+}
+
+
+# ---------------------------------------------------------------------------
+# Admin token Secret for /admin/keys endpoints.
+# Required for API key creation, listing, and revocation. Generated via
+# openssl rand -hex 32 and stored in Terraform Cloud as a sensitive variable.
+# ---------------------------------------------------------------------------
+
+resource "kubernetes_secret" "civicgrid_admin" {
+  metadata {
+    name      = "civicgrid-admin"
+    namespace = kubernetes_namespace.civicgrid.metadata[0].name
+  }
+
+  type = "Opaque"
+
+  data = {
+    ADMIN_TOKEN = var.admin_token
+  }
 }
