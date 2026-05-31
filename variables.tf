@@ -98,6 +98,12 @@ variable "database_url" {
   sensitive   = true
 }
 
+variable "admin_token" {
+  description = "Token guarding /admin/keys endpoints. Set in Terraform Cloud workspace as sensitive. Generate with: openssl rand -hex 32"
+  type        = string
+  sensitive   = true
+}
+
 # ---------------------------------------------------------------------------
 # Load Balancer IP
 # ---------------------------------------------------------------------------
