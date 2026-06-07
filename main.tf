@@ -9,7 +9,7 @@ resource "digitalocean_kubernetes_cluster" "civicgrid" {
   region  = var.region
   version = var.kubernetes_version
 
-  auto_upgrade  = false
+  auto_upgrade = true
   surge_upgrade = true
 
   node_pool {
