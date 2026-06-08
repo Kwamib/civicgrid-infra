@@ -113,3 +113,9 @@ variable "lb_ip" {
   type        = string
   default     = "1.2.3.4"
 }
+
+variable "supabase_jwt_secret" {
+  description = "Supabase JWT secret for validating user JWTs in /me endpoints. Get from: Supabase dashboard → Settings → JWT Settings. Set in Terraform Cloud workspace as sensitive."
+  type        = string
+  sensitive   = true
+}

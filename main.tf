@@ -198,6 +198,7 @@ resource "kubernetes_secret" "civicgrid_admin" {
   type = "Opaque"
 
   data = {
-    ADMIN_TOKEN = var.admin_token
+    ADMIN_TOKEN         = var.admin_token
+    SUPABASE_JWT_SECRET = var.supabase_jwt_secret
   }
 }
