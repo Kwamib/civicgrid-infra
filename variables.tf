@@ -119,3 +119,9 @@ variable "supabase_jwt_secret" {
   type        = string
   sensitive   = true
 }
+
+variable "supabase_url" {
+  description = "Supabase project URL for JWKS endpoint discovery (used by /me JWT validation)."
+  type        = string
+  default     = "https://ryooqoweqwfrfncqtjwj.supabase.co"
+}

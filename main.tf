@@ -200,5 +200,6 @@ resource "kubernetes_secret" "civicgrid_admin" {
   data = {
     ADMIN_TOKEN         = var.admin_token
     SUPABASE_JWT_SECRET = var.supabase_jwt_secret
+    SUPABASE_URL        = var.supabase_url
   }
 }
