@@ -42,7 +42,7 @@ variable "region" {
 variable "kubernetes_version" {
   description = "Kubernetes version. Use a slug like '1.31.1-do.0'. Find current options with: doctl kubernetes options versions"
   type        = string
-  default     = "1.31.1-do.0"
+  default     = "1.35.5-do.1"
 }
 
 variable "node_size" {
