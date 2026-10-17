@@ -99,13 +99,24 @@ resource "helm_release" "argocd" {
           type = "ClusterIP"
         }
       }
+      # Oct 17, 2026: the application controller used about 538Mi against a
+      # 256Mi request, so the node was fuller than the scheduler believed and
+      # this pod would be the first evicted under memory pressure.
       controller = {
         resources = {
           requests = {
             cpu    = "100m"
-            memory = "256Mi"
+            memory = "512Mi"
           }
         }
+      }
+      # Not used: no ApplicationSets exist (kubectl get applicationsets -A,
+      # Oct 17), and no notification settings are configured in these values.
+      applicationSet = {
+        replicas = 0
+      }
+      notifications = {
+        enabled = false
       }
       repoServer = {
         resources = {
